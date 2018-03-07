@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-char font[] = "monospace:size=14";
+char font[] = "monospace:size=10";
 int borderpx = 2;
 
 /*

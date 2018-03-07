@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-char font[] = "Monospace Regular:pixelsize=12";
+char font[] = "monospace:pixelsize=12";
 int borderpx = 2;
 
 /*
@@ -83,7 +83,7 @@ char termname[] = "st-256color";
 static unsigned int tabspaces = 8;
 
 /* bg opacity */
-unsigned int alpha = 0x80;
+unsigned int alpha = 0x60;
 
 /* Terminal colors (16 first used in escape sequence) */
 const char *colorname[] = {

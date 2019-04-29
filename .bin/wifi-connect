@@ -1,0 +1,9 @@
+#! /bin/bash
+if pgrep -x "wpa_supplicant" > /dev/null; then
+    sudo killall wpa_supplicant
+fi
+
+interface=($(iw dev | grep Interface))
+
+sudo wpa_supplicant -B -i ${interface[1]} -c /etc/wpa_supplicant/${1,,}.conf
+sudo systemctl restart dhcpcd

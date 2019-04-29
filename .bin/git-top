@@ -1,0 +1,5 @@
+#! /bin/bash
+
+if git ls-files >& /dev/null; then
+    git rev-parse --show-toplevel
+fi

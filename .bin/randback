@@ -1,0 +1,9 @@
+#! /bin/bash
+
+shopt -s nullglob
+bgs=(~/Backgrounds/*.{png,jpg})
+ln -sf ${bgs[`expr $RANDOM % ${#bgs[*]}`]} ~/Backgrounds/monitors/monitor0
+ln -sf ${bgs[`expr $RANDOM % ${#bgs[*]}`]} ~/Backgrounds/monitors/monitor1
+bgs=(~/Backgrounds/*.png)
+ln -sf ${bgs[`expr $RANDOM % ${#bgs[*]}`]} ~/Backgrounds/monitors/lock
+~/.fehbg &

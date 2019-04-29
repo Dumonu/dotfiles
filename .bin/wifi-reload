@@ -1,0 +1,6 @@
+#! /bin/bash
+
+if pgrep -x "wpa_supplicant" > /dev/null; then
+    sudo killall -HUP wpa_supplicant
+fi
+echo "Reloaded."

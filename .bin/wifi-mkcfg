@@ -1,0 +1,23 @@
+#! /bin/bash
+
+
+if [ $# -ne 2 ]; then
+    echo "Usage: wifi-mkcfg ssid psk" 1>&2
+    exit 1
+fi
+
+if [ -a /etc/wpa_supplicant/${1,,}.conf ]; then
+    echo "This network already has a configuration!" 1>&2
+    echo "Do you wish to overwrite it? It will be backed up." 1>&2
+    select yn in "Yes" "No"; do
+        if [ $yn == "No" ]; then 
+            exit
+        else 
+            sudo mv /etc/wpa_supplicant/${1,,}.conf /etc/wpa_supplicant/${1,,}.conf.bak
+            break
+        fi
+    done
+fi
+
+wpa_passphrase $1 $2 | sudo tee /etc/wpa_supplicant/${1,,}.conf > /dev/null
+echo "Configuration generated."

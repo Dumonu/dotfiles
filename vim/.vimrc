@@ -13,9 +13,10 @@ syntax enable
 
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-au BufReadPost * silent execute '!ctags %'
 
+au BufReadPost * silent execute '!ctags %'
 au BufWritePost * silent execute '!ctags %'
+au VimLeave * silent execute '!rm -f tags'
 
 set number
 set scrolloff=5

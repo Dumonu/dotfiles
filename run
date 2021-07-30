@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+base_dir="$(cd "$(dirname "$0")" && pwd -P)"
+bin_dir=${base_dir}/bin
+etc_dir=${base_dir}/etc
+omnisharp_dir=${base_dir}/omnisharp
+
+if command -v mono >/dev/null 2>&1; then
+    mono_ver=$(mono --version=number | awk 'BEGIN { FS="." } { printf "%d%02d%02d\n", $1, $2, $3 }')
+    if (( $mono_ver >= 60400 )); then
+        mono_cmd=mono
+    else
+        mono_cmd=${bin_dir}/mono
+        chmod 755 "${mono_cmd}"
+    fi
+else
+    mono_cmd=${bin_dir}/mono
+    chmod 755 "${mono_cmd}"
+fi
+omnisharp_cmd=${omnisharp_dir}/OmniSharp.exe
+config_file=${etc_dir}/config
+
+no_omnisharp=false
+
+if [ "$1" = "--no-omnisharp" ]; then
+    shift
+    no_omnisharp=true
+fi
+
+export MONO_CFG_DIR=${etc_dir}
+export MONO_ENV_OPTIONS="--assembly-loader=strict --config ${config_file}"
+
+if [ "$no_omnisharp" = true ]; then
+    "${mono_cmd}" "$@"
+else
+    "${mono_cmd}" "${omnisharp_cmd}" "$@"
+fi
